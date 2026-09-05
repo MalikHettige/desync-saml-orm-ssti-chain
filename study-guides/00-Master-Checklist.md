@@ -1,5 +1,5 @@
 # Master Checklist (Reconciled) 
-# Implementation adapted from external references and modified for this project.
+Implementation adapted from external references and modified for this project.
 
 **What this document is:** the desync/SAML/ORM/SSTI chain material, corrected and folded into your actual live plan — not a competing 4-month track with its own deadline.
 

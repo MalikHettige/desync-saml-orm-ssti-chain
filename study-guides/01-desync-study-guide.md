@@ -175,6 +175,7 @@ Be skeptical of framing that treats desync as an automatic stepping stone into S
 - [Black Hat 2024](https://portswigger.net/black-hat-2024) — check what this specific year's talk covers before treating it as required reading.
 - [RFC 7230, Section 3.3 (Message Body)](https://www.rfc-editor.org/info/rfc7230/) — the spec section that makes CL/TE ambiguity legal in the first place.
 - [HTTP Request Smuggler (BApp Store)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646) — the Burp extension the whole detection methodology depends on. Install this.
+- [portswigger request smuggling learning path](https://portswigger.net/web-security/request-smuggling#what-is-http-request-smuggling)
 - [portswigger/http-request-smuggler (GitHub)](https://github.com/portswigger/http-request-smuggler) — source code for the extension above. Save for later, once you're past foundational study — reading it tells you exactly what's checked for, and therefore what's already considered "covered."
 - [HackerOne Report #1238099 — Node/ATS Request Smuggling via Chunk Extensions](https://hackerone.com/reports/1238099) — the real, primary-source disclosure behind the chunk-extension technique (the X post you found is just a pointer to this; this is the actual report). Note: this is from 2021, not 2025 — corrects the dating error in the current file.
 

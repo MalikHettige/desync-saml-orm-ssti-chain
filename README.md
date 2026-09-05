@@ -26,17 +26,24 @@ This repo is the practical implementation of that research.
 
 ## Repository Structure
 
+```text
 desync-saml-orm-ssti-chain/
-├── study-guides/          # Deep conceptual guides for each stage
-├── labs/                  # Standalone vulnerable labs + exploitation
+│
+├── study-guides/        # Deep conceptual guides for each stage
+│
+├── labs/                # Standalone vulnerable labs + exploitation
 │   ├── desync/
 │   ├── saml/
 │   ├── orm/
 │   └── ssti/
-├── integration/           # Full-chain design, diagrams, and end-to-end notes
-├── recon/                 # Targeting methodology specific to this chain
-├── progress/              # Weekly notes & lab validation (sanitized)
-└── resources/             # Curated links to primary research papers
+│
+├── integration/         # Full-chain design, diagrams, and end-to-end notes
+│
+├── recon/               # Targeting methodology specific to this chain
+│
+├── progress/            # Weekly notes & lab validation (sanitized)
+│
+└── resources/           # Curated links to primary research papers
 
 
 ---

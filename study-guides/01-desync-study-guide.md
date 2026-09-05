@@ -166,5 +166,17 @@ Be skeptical of framing that treats desync as an automatic stepping stone into S
 3. **RFC 7230, Section 3.3** (Message Body) — still the correct spec reference for why these ambiguities are legal in the first place.
 4. **HTTP Request Smuggler extension changelog** — worth reading directly to understand exactly what the v3.0 parser-discrepancy detection checks for, since that tells I what’s now considered “already mitigated” vs. still open.
 
+## Learning Materials (Primary Sources)
+
+- [HTTP Desync Attacks: Request Smuggling Reborn](https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn) — Kettle's original 2019 paper. Start here; everything else builds on this.
+- [HTTP/2: The Sequel is Always Worse](https://portswigger.net/research/http2) — H2.CL/H2.TE research, front-end HTTP/2-to-HTTP/1.1 downgrade attacks.
+- [Browser-Powered Desync Attacks](https://portswigger.net/research/browser-powered-desync-attacks) — client-side/pause-based desync (CSD); no malformed headers required, victim's own browser does the work.
+- [HTTP/1 Must Die](https://portswigger.net/research/http1-must-die) — Kettle's case for why HTTP/1.1's inherent ambiguity is the root cause across this entire bug class.
+- [Black Hat 2024](https://portswigger.net/black-hat-2024) — check what this specific year's talk covers before treating it as required reading.
+- [RFC 7230, Section 3.3 (Message Body)](https://www.rfc-editor.org/info/rfc7230/) — the spec section that makes CL/TE ambiguity legal in the first place.
+- [HTTP Request Smuggler (BApp Store)](https://portswigger.net/bappstore/aaaa60ef945341e8a450217a54a11646) — the Burp extension the whole detection methodology depends on. Install this.
+- [portswigger/http-request-smuggler (GitHub)](https://github.com/portswigger/http-request-smuggler) — source code for the extension above. Save for later, once you're past foundational study — reading it tells you exactly what's checked for, and therefore what's already considered "covered."
+- [HackerOne Report #1238099 — Node/ATS Request Smuggling via Chunk Extensions](https://hackerone.com/reports/1238099) — the real, primary-source disclosure behind the chunk-extension technique (the X post you found is just a pointer to this; this is the actual report). Note: this is from 2021, not 2025 — corrects the dating error in the current file.
+
 ---
 

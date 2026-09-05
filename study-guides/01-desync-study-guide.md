@@ -96,19 +96,19 @@ If my captured “stolen” responses come back looking like they belong to a co
 ## Proof (for the report)
 
 1. **Confirmed desync (no impact yet)** — proves the parsing discrepancy exists via ERG-based confirmation. Weak on its own; programs often want to see impact before paying.
-2. **Single-request smuggling** — as if i get one malicious request processed as if it came from the backend’s trusted context (e.g., bypassing a front-end access control check that only inspects the first request in a batch).
+2. **Single-request smuggling** — when I get one malicious request processed as if it came from the backend’s trusted context (e.g., bypassing a front-end access control check that only inspects the first request in a batch).
 3. **Cache poisoning** — I poison a shared cache entry so other users receive attacker-controlled content.
-4. **Response Queue Poisoning** — persistently intercept other users responses. This is target outcome for a real submission; it’s unambiguous, high-severity, and hard for triage to dispute once demonstrated.
+4. **Response Queue Poisoning** — persistently intercept other users' responses. This is target outcome for a real submission; it’s unambiguous, high-severity, and hard for triage to dispute once demonstrated.
 
 ---
 
 ## Honest Note on “Chaining Into SAML/ORM/SSTI”
 
-Be skeptical of framing that treats desync as an automatic stepping stone into SAML forgery or ORM injection. The realistic connection is narrower than “desync gets I into a trusted context, therefore SAML”:
+Be skeptical of framing that treats desync as an automatic stepping stone into SAML forgery or ORM injection. The realistic connection is narrower than “desync gets me into a trusted context, therefore SAML”:
 
-- Desync can let I smuggle a request that bypasses a front-end auth check the back-end assumes was already enforced — this is real and specific, not generic “trusted context” access.
+- Desync can let me smuggle a request that bypasses a front-end auth check the back-end assumes was already enforced — this is real and specific, not generic “trusted context” access.
 - Desync-based cache/response poisoning can expose internal error pages, stack traces, or metadata *if* the target’s back-end leaks that information on some path — this isn’t guaranteed and depends entirely on target-specific behavior I’d need to discover during recon, not something desync provides by default.
-- There is no general mechanism where “desync” hands I a working path into SAML canonicalization bugs. If a chain like that exists on a specific target, it’s because of that target’s specific architecture, not because desync inherently unlocks it. Treat any study material that asserts this as a general pattern with caution — it’s the kind of overstated generalization worth stress-testing before I build a study plan around it.
+- There is no general mechanism where “desync” hands me a working path into SAML canonicalization bugs. If a chain like that exists on a specific target, it’s because of that target’s specific architecture, not because desync inherently unlocks it. Treat any study material that asserts this as a general pattern with caution — it’s the kind of overstated generalization worth stress-testing before I build a study plan around it.
 
 ---
 
@@ -117,7 +117,7 @@ Be skeptical of framing that treats desync as an automatic stepping stone into S
 - **Burp Suite — HTTP Request Smuggler extension, v3.0+**: Now includes parser-discrepancy detection specifically built to bypass widely-deployed desync mitigations. Older versions will miss most of what’s exploitable in 2026.
 - **Burp Turbo Intruder**: Required for the single-packet attack — the de facto standard for eliminating network-timing false positives during detection.
 - **smuggler** (community Python tool): Useful for scripted, repeatable differential testing against a target across CL.TE/TE.CL/TE.TE variants.
-- Manual raw-socket crafting (Python `socket` module) is still worth practicing by hand at least once — it forces I to actually understand byte-level framing instead of trusting a tool’s output.
+- Manual raw-socket crafting (Python `socket` module) is still worth practicing by hand at least once — it forces me to actually understand byte-level framing instead of trusting a tool’s output.
 
 ---
 

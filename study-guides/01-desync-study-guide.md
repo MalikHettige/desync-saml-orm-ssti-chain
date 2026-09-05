@@ -12,7 +12,7 @@ It isn’t one bug. It’s a *disagreement* between two HTTP parsers that both t
 
 - Classic CL.TE and TE.CL — the 2019-era techniques most tutorials teach — are now blocked by default on most major CDNs and reverse proxies (Cloudflare, AWS ALB, modern nginx/HAProxy configs). Finding one on a well-known target in 2026 is rare.
 - The techniques that are still landing valid, paid findings today are the newer, uglier ones: 0.CL, CL.0, TE.0, H2-downgrade desyncs, chunk-extension abuse, and client-side desync (CSD). These require more setup and more patience to confirm.
-- Confirmation is the hard part, not the concept. Most people who “find” a desync actually found a flaky server and a coincidence. Programs will bounce unconfirmed smuggling reports as N/A fast — this is a technique where rigor in Ir PoC matters more than almost anywhere else in Ir focus areas.
+- Confirmation is the hard part, not the concept. Most people who “find” a desync actually found a flaky server and a coincidence. Programs will bounce unconfirmed smuggling reports as N/A fast — this is a technique where rigor in my PoC matters more than almost anywhere else in the focus areas.
 - This is a good skill to *understand* deeply. It is not a fast or reliable path for my first bounty. 
 
 ---
@@ -69,7 +69,7 @@ Chunked encoding technically allows “chunk extensions” (metadata after the c
 
 ### 9. Client-side desync (CSD) / pause-based desync
 
-Unlike the above, these use fully browser-compatible requests — no malformed headers required. A slow request from a normal browser can leave a connection in a state where a front-end forwards a partial request, and back-end timeout behavior lets an attacker complete it later with an injected prefix. This matters because it means a *victim’s own browser* can be weaponized without them sending anything unusual — it defeats the assumption that desync requires “abnormal” traffic Ir target would immediately flag.
+Unlike the above, these use fully browser-compatible requests — no malformed headers required. A slow request from a normal browser can leave a connection in a state where a front-end forwards a partial request, and back-end timeout behavior lets an attacker complete it later with an injected prefix. This matters because it means a *victim’s own browser* can be weaponized without them sending anything unusual — it defeats the assumption that desync requires “abnormal” traffic my target would immediately flag.
 
 ---
 
@@ -81,7 +81,7 @@ Sending two separate TCP writes and eyeballing response timing is unreliable —
 
 ### Step 2 — For 0.CL/CL.0 conditions, find an early-response gadget
 
-If Ir obfuscated-CL request produces a timeout instead of a clean response, I likely have a deadlock, not a dead end. Look for an endpoint the back-end will answer without reading the full body — static assets served directly by something like nginx are the classic example. Confirmation looks like: send request A (obfuscated CL, ERG target) → back-end responds early despite an incomplete body → send request B down the same connection → if B’s response shows the back-end interpreted leftover bytes from A as part of B, I’ve confirmed a real desync, not a timeout artifact.
+If my obfuscated-CL request produces a timeout instead of a clean response, I likely have a deadlock, not a dead end. Look for an endpoint the back-end will answer without reading the full body — static assets served directly by something like nginx are the classic example. Confirmation looks like: send request A (obfuscated CL, ERG target) → back-end responds early despite an incomplete body → send request B down the same connection → if B’s response shows the back-end interpreted leftover bytes from A as part of B, I’ve confirmed a real desync, not a timeout artifact.
 
 ### Step 3 — Escalate to Response Queue Poisoning (RQP) for real impact
 
@@ -89,7 +89,7 @@ The end goal on a confirmed desync usually isn’t a one-off cache poison — it
 
 ### Step 4 — Watch for CDN-edge desync specifically
 
-If Ir captured “stolen” responses come back looking like they belong to a completely different, unrelated site, I may have triggered the desync inside the CDN’s shared edge infrastructure rather than Ir target’s own backend — meaning I can potentially route to arbitrary domains hosted on that CDN. This is high-severity and also the kind of finding that triage teams initially doubt — be ready to document it thoroughly (which domain each response belongs to, and confirmation that domain is hosted on the same CDN).
+If my captured “stolen” responses come back looking like they belong to a completely different, unrelated site, it means I may have triggered the desync inside the CDN’s shared edge infrastructure rather than my target’s own backend — meaning I can potentially route to arbitrary domains hosted on that CDN. This is high-severity and also the kind of finding that triage teams initially doubt — be ready to document it thoroughly (which domain each response belongs to, and confirmation that domain is hosted on the same CDN).
 
 ---
 
@@ -98,7 +98,7 @@ If Ir captured “stolen” responses come back looking like they belong to a co
 1. **Confirmed desync (no impact yet)** — proves the parsing discrepancy exists via ERG-based confirmation. Weak on its own; programs often want to see impact before paying.
 2. **Single-request smuggling** — as if i get one malicious request processed as if it came from the backend’s trusted context (e.g., bypassing a front-end access control check that only inspects the first request in a batch).
 3. **Cache poisoning** — I poison a shared cache entry so other users receive attacker-controlled content.
-4. **Response Queue Poisoning** — I persistently intercept other users responses. This is Ir target outcome for a real submission; it’s unambiguous, high-severity, and hard for triage to dispute once demonstrated.
+4. **Response Queue Poisoning** — persistently intercept other users responses. This is target outcome for a real submission; it’s unambiguous, high-severity, and hard for triage to dispute once demonstrated.
 
 ---
 
@@ -135,7 +135,7 @@ Be skeptical of framing that treats desync as an automatic stepping stone into S
 ### What actually indicates desync (vs. a flaky server)
 
 - Reproducible delayed responses tied to a specific malformed request, not intermittent slowness across the whole site.
-- A follow-up request on the *same connection* consistently returning content/errors that only make sense if bytes from Ir prior request leaked into it.
+- A follow-up request on the *same connection* consistently returning content/errors that only make sense if bytes from my prior request leaked into it.
 - Cache entries that change content depending on which upstream request populated them, not just cache staleness.
 
 ---

@@ -38,13 +38,10 @@ desync-saml-orm-ssti-chain/
 │   └── ssti/
 │
 ├── integration/         # Full-chain design, diagrams, and end-to-end notes
-│
 ├── recon/               # Targeting methodology specific to this chain
-│
 ├── progress/            # Weekly notes & lab validation (sanitized)
-│
 └── resources/           # Curated links to primary research papers
-
+```
 
 ---
 
@@ -74,6 +71,12 @@ desync-saml-orm-ssti-chain/
 - Live findings → [`Bug-bounty-reports`](https://github.com/MalikHettige/Bug-bounty-reports)
 
 ---
+
+## Disclaimer
+
+This work is for authorized security research and educational purposes only.
+
+The author is not responsible for any misuse of the information or code contained in this repository.
 
 ## Disclaimer
 

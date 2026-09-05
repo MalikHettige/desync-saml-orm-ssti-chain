@@ -15,7 +15,7 @@ This repository contains:
 
 ---
 
-## Why This Chain?
+## Why I chose this specific Chain?
 
 Most hunters still focus on IDOR / classic auth bypasses.  
 Very few have operationalized the combination of modern desync primitives (0.CL, TE.0, chunk-extension, CSD), Golden SAML signature reuse via canonicalization collisions, ORM type confusion, and blind SSTI side-channel exploitation.
@@ -71,12 +71,6 @@ desync-saml-orm-ssti-chain/
 - Live findings → [`Bug-bounty-reports`](https://github.com/MalikHettige/Bug-bounty-reports)
 
 ---
-
-## Disclaimer
-
-This work is for authorized security research and educational purposes only.
-
-The author is not responsible for any misuse of the information or code contained in this repository.
 
 ## Disclaimer
 

@@ -1,62 +1,20 @@
-# HTTP Request Smuggling / Desync — Mastery Course
+# [PARKED] CRLF Desync → Golden SAML → ORM-Leak → Blind SSTI-RCE
 
-Research and operational work toward elite-level HTTP request smuggling (desync) skill for bug bounty hunting.
+Status: shelved, not started. Read this whole file before resuming — don't just skip to a task list.
 
-> **Status:** Active research. Target: live hunting starting January, VDP reps until then.
-> **Scope decision:** This repo previously covered a 4-stage chain (Desync → Golden SAML → ORM → SSTI). As of this revision, the primary focus is **desync alone**, mastered to elite depth, on the reasoning that it has the broadest applicability across modern architectures (anything behind a CDN/reverse proxy) with the lowest competition among hunters. SAML/ORM/SSTI remain valuable opportunistic skills but are no longer the primary track — see `resources/scope-decision.md`.
+## The idea
+A four-stage chain: CRLF-powered HTTP request smuggling → Golden SAML forgery → ORM-type-confusion data exfiltration → blind SSTI escalating to RCE, with server-side prototype pollution held as an RCE fallback.
 
-## Why desync, specifically
+## Why it was shelved (read this part first)
+- **These four steps don't functionally chain.** A real chain means each step produces the access the next step needs. None of these do — a desync bug gives you nothing that helps forge a SAML assertion; forging a SAML assertion gives you nothing that helps an ORM confusion bug. Four separate skill domains, not a pipeline. If you're picking this back up, treat it as four independent things to learn, not one curriculum.
+- **Golden SAML doesn't fit bug bounty.** It requires already holding the identity provider's signing-key private key — it's a post-exploitation technique used in internal AD red-team engagements after access is already won, not something external web testing finds. The bug-bounty-relevant near-cousin is SAML signature bypass / XML Signature Wrapping, which forges assertions without ever touching the key. If SSO is genuinely the interest, that's the real target.
+- **Prototype pollution as "RCE fallback" only works on Node.js targets.** It's not a universal fallback across stacks — worth knowing that going in.
+- **ORM-Leak (blind ORM injection) is real but narrow**, dependent on the specific ORM/framework a target runs.
+- **Two of the four are already legitimate and already available**: request smuggling and SSTI are both existing PortSwigger Academy modules. No separate curriculum needed for those two specifically, whenever they're picked up.
 
-Most hunters still default to IDOR and classic auth bypass. Very few have operationalized:
+## What the fuller analysis actually pointed to
+- **Highest expected value given real progress already on hand:** IDOR/Broken Access Control, Authentication, Business Logic. No target-architecture prerequisite — every multi-user app has this surface. Logic-based, so scanners can't find it, which keeps the field smaller. OWASP's #1 category, trending up, not down.
+- **Highest theoretical ceiling, if payout size alone is the metric:** smart contract / Web3 security auditing (Solidity, EVM internals). A completely separate discipline from everything above, starting from zero.
 
-- The full primitive taxonomy (not just the 2019 classics)
-- Client-side desync (2022 research) — works without a reverse-proxy pair
-- The HTTP/2-to-HTTP/1.1 downgrade seam (2024–2025 frontier) — CDN/WAF/gateway edges
-- Safe, non-destructive confirmation methodology
-- A rehearsed primitive-to-impact playbook, not just detection
-
-This repo is the structured, working implementation of that gap.
-
-## Course map
-
-Read in this order — each module builds on the last:
-
-1. [`study-guides/desync/00-course-map.md`](study-guides/desync/00-course-map.md) — how to use this course
-2. [`study-guides/desync/01-fundamentals-and-taxonomy.md`](study-guides/desync/01-fundamentals-and-taxonomy.md) — why desync exists, full primitive taxonomy
-3. [`study-guides/desync/02-client-side-desync.md`](study-guides/desync/02-client-side-desync.md) — CSD, browser-as-frontend
-4. [`study-guides/desync/03-http2-downgrade-seam.md`](study-guides/desync/03-http2-downgrade-seam.md) — the current frontier
-5. [`study-guides/desync/04-detection-and-safe-confirmation.md`](study-guides/desync/04-detection-and-safe-confirmation.md) — proving a primitive without collateral damage
-6. [`study-guides/desync/05-primitive-to-impact-playbooks.md`](study-guides/desync/05-primitive-to-impact-playbooks.md) — turning a confirmed primitive into a reportable bug
-7. [`study-guides/desync/06-tooling.md`](study-guides/desync/06-tooling.md) — Burp extensions, Turbo Intruder, raw sockets
-8. [`recon/target-fingerprinting-and-primitive-matrix.md`](recon/target-fingerprinting-and-primitive-matrix.md) — pre-qualifying a target before spending a target-week on it
-9. [`resources/primary-research-reading-list.md`](resources/primary-research-reading-list.md) — the source papers, in order
-10. [`progress/mastery-checklist.md`](progress/mastery-checklist.md) — how you'll know you've actually mastered this, not just read about it
-
-## Repository structure
-
-```
-desync-course/
-│
-├── study-guides/desync/   # The 8-module course above
-├── labs/desync/           # Your intentionally vulnerable practice labs (build per module 1-4)
-├── recon/                 # Target fingerprinting & primitive-matrix methodology
-├── progress/              # Weekly notes, lab validation logs, mastery checklist
-└── resources/             # Primary research reading list + scope-decision note
-```
-
-## Important notes
-
-- All labs are intentionally vulnerable, for educational/authorized use only.
-- Never use any material here against systems you do not own or have explicit permission to test.
-- Confirmed findings on real programs get written up separately, after responsible disclosure, in `Bug-bounty-reports`.
-
-## Related repositories
-
-- Conceptual notes & paper summaries → [`Research-notes`](https://github.com/MalikHettige/Research-notes)
-- Reusable Python tooling → [`python-programming`](https://github.com/MalikHettige/python-programming)
-- Educational lab writeups → [`Bug-bounty-writeups`](https://github.com/MalikHettige/Bug-bounty-writeups)
-- Live findings → [`Bug-bounty-reports`](https://github.com/MalikHettige/Bug-bounty-reports)
-
-## Disclaimer
-
-This work is for authorized security research and educational purposes only. The author is not responsible for any misuse of the information or code contained in this repository.
+## Before reopening this file
+This was the fourth different "final answer" landed on in a single sitting — this chain, then a revised web/cloud path built on real existing progress, then smart contract security, then back to this. There are also already a few other bug-bounty project spaces sitting around. None of that means this is the wrong choice — it means: before starting, check this is still the actual answer once some time has passed, not just the most recent thing that sounded impressive.

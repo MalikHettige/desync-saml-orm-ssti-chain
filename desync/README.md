@@ -46,6 +46,17 @@ desync-course/
 └── resources/             # Primary research reading list + scope-decision note
 ```
 
+## Status Update — September 24, 2026
+
+**Verdict:** Desync mastery is paused. Full BAC/Auth/Business-logic focus until a $15k accepted-bounty floor is reached — desync resumes after that milestone, not before.
+
+**Reasoning:**
+- Desync requires a 2-3 week confirmation cycle per target vs. 1 week for BAC/Auth/business logic — fewer total attempts in a fixed hunting window, which lowers the odds of hitting a specific dollar floor reliably.
+- BAC/Auth/business logic has the broadest target applicability (any multi-user app qualifies) and the highest hit rate of anything in the current skillset — the fastest, most certain path to $15k specifically.
+- Desync pays more per finding when it lands, but rarity and cycle time make it the wrong lever for a floor goal. It's the right lever for upside once the floor is secured.
+
+**Resume condition:** $15k in accepted bounties. Desync work restarts immediately after, not deferred further.
+
 ## Important notes
 
 - All labs are intentionally vulnerable, for educational/authorized use only.

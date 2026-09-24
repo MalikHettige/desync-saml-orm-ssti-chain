@@ -5,6 +5,8 @@ Research and operational work toward elite-level HTTP request smuggling (desync)
 > **Status:** Active research. Target: live hunting starting January, VDP reps until then.
 > **Scope decision:** This repo previously covered a 4-stage chain (Desync → Golden SAML → ORM → SSTI). As of this revision, the primary focus is **desync alone**, mastered to elite depth, on the reasoning that it has the broadest applicability across modern architectures (anything behind a CDN/reverse proxy) with the lowest competition among hunters. SAML/ORM/SSTI remain valuable opportunistic skills but are no longer the primary track — see `resources/scope-decision.md`.
 
+### One single advice: always note down every single questions that pops up, research, master it and document here. Always produce insights, suggestions and hypothesis perspectives and learn to fix. 
+
 ## Why desync, specifically
 
 Most hunters still default to IDOR and classic auth bypass. Very few have operationalized:

@@ -1,9 +1,8 @@
 # [PARKED] CRLF Desync → Golden SAML → ORM-Leak → Blind SSTI-RCE
 
 **Repo created**: August, 2026
-**Studies started**: 24th September, 2026
 
-Status: shelved, not started. Read this whole file before resuming — don't just skip to a task list.
+Status: shelved, not started. 
 
 ## The idea
 A four-stage chain: CRLF-powered HTTP request smuggling → Golden SAML forgery → ORM-type-confusion data exfiltration → blind SSTI escalating to RCE, with server-side prototype pollution held as an RCE fallback.
